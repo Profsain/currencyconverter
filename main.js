@@ -5,7 +5,6 @@ function convertCurrency() {
     let toAmount = document.getElementById("currencyToValue");
 
     const convUrl = `https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=ultra`;
-    //  const twoWay = `https://www.currencyconverterapi.com/api/v5/convert?q=${from}_${to},${to}_${from}&compact=ultra`;
 
     fetch(convUrl).then(response =>  response.json())
 		.then(rates => {
@@ -17,5 +16,6 @@ function convertCurrency() {
 }
 
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/sw.js');
+  navigator.serviceWorker.register('sw.js');
+  console.log('serviceworker registered');
 };

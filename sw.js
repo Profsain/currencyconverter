@@ -1,8 +1,23 @@
-self.addEventListener('install', function(e) {
-  console.log('service worker intsalled');
+// Installing cache
+self.addEventListener('install', function(event) {
+  let urlsTocache = [
+    '/',
+    'main.js',
+  ];
+  event.waitUntil(
+    caches.open('curcvt-v1').then(function(cache) {
+      return cache.addAll(urlsTocache);
+    })
+  );
 });
 
-let cacheName = 'curconvt-v1';
-let appShellFiles = [
-  '/'
-]
+// fetching the cache resources 
+self.addEventListener('fetch', function(event){
+  event.respondWith(
+    caches.match(event.request).then(function(response) {
+      if(response) return response;
+      return fetch(event.request);
+    })
+  );
+})
+
